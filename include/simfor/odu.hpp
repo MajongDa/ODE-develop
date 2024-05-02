@@ -5,13 +5,13 @@
 #include <boost/mpi.hpp>
 #include "internal/types.hpp"
 #include "simfor/multMatrVec.hpp"
-#include <chrono>
 #include <iostream>
 
-namespace mpi = boost::mpi;
+
 
 namespace simfor
 {
+namespace mpi = boost::mpi;
 //коэффаценты соотв. методов
 float adams_bashford_koeff( int );
 float adams_moulton_koeff( int );

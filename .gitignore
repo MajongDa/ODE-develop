@@ -10,6 +10,7 @@
 .idea/**/shelf
 
 # kdevelop stuff
+.kdev4
 *.kdev4
 
 #vscode stuff

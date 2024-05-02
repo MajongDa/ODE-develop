@@ -2,7 +2,6 @@
 
 namespace simfor
 {
-
 float adams_bashford_koeff ( int i )
     {
     float a[5] = {1901. / 720., 1387. / 360., 109. / 30., 637. / 360., 251. / 720.};
@@ -68,7 +67,7 @@ matr adams5_function_solve_vector ( float a, float b, float h, int n, vec ( *vf 
     matr Y ( n + 1, vs.size() );
 
     subrange ( Y, 0, 5, 0, vs.size() ) =
-    rk_system_function_solve_vector ( a, b, h, 4, vf, vs );
+        rk_system_function_solve_vector ( a, b, h, 4, vf, vs );
 
     for ( int i = 4; i < n; ++i )
         {
@@ -143,12 +142,12 @@ matr adams5_system_solve_matrix_omp ( float h, int n, vec y_0, matr F )
     for ( int i = 4; i < n; ++i )
         {
         row ( Y, i + 1 ) = row ( Y, i ) + h * (
-                                 adams_bashford_koeff ( 0 ) * multMatrVec_omp ( F, row ( Y,  i ) ) -
-                                 adams_bashford_koeff ( 1 ) * multMatrVec_omp ( F, row ( Y, i - 1 ) ) +
-                                 adams_bashford_koeff ( 2 ) * multMatrVec_omp ( F, row ( Y, i - 2 ) ) -
-                                 adams_bashford_koeff ( 3 ) * multMatrVec_omp ( F, row ( Y, i - 3 ) ) +
-                                 adams_bashford_koeff ( 4 ) * multMatrVec_omp ( F, row ( Y, i - 4 ) )
-                             );
+                               adams_bashford_koeff ( 0 ) * multMatrVec_omp ( F, row ( Y,  i ) ) -
+                               adams_bashford_koeff ( 1 ) * multMatrVec_omp ( F, row ( Y, i - 1 ) ) +
+                               adams_bashford_koeff ( 2 ) * multMatrVec_omp ( F, row ( Y, i - 2 ) ) -
+                               adams_bashford_koeff ( 3 ) * multMatrVec_omp ( F, row ( Y, i - 3 ) ) +
+                               adams_bashford_koeff ( 4 ) * multMatrVec_omp ( F, row ( Y, i - 4 ) )
+                           );
         }
     return Y;
     }
@@ -175,12 +174,12 @@ matr adams5_system_solve_matrix_mpi ( float h, int n, vec y_0, matr F )
     for ( int i = 4; i < n; ++i )
         {
         row ( Y, i + 1 ) = row ( Y, i ) + h * (
-                                 adams_bashford_koeff ( 0 ) * multMatrVec_mpi ( F, row ( Y,  i ) ) -
-                                 adams_bashford_koeff ( 1 ) * multMatrVec_mpi ( F, row ( Y, i - 1 ) ) +
-                                 adams_bashford_koeff ( 2 ) * multMatrVec_mpi ( F, row ( Y, i - 2 ) ) -
-                                 adams_bashford_koeff ( 3 ) * multMatrVec_mpi ( F, row ( Y, i - 3 ) ) +
-                                 adams_bashford_koeff ( 4 ) * multMatrVec_mpi ( F, row ( Y, i - 4 ) )
-                             );
+                               adams_bashford_koeff ( 0 ) * multMatrVec_mpi ( F, row ( Y,  i ) ) -
+                               adams_bashford_koeff ( 1 ) * multMatrVec_mpi ( F, row ( Y, i - 1 ) ) +
+                               adams_bashford_koeff ( 2 ) * multMatrVec_mpi ( F, row ( Y, i - 2 ) ) -
+                               adams_bashford_koeff ( 3 ) * multMatrVec_mpi ( F, row ( Y, i - 3 ) ) +
+                               adams_bashford_koeff ( 4 ) * multMatrVec_mpi ( F, row ( Y, i - 4 ) )
+                           );
         }
 
 
@@ -206,12 +205,12 @@ vec AdMltn_function_solve ( float a, float b, float h, int n, float ( *f ) ( flo
                  adams_bashford_koeff ( 4 ) * f ( a + h * ( i - 4 ), y ( i - 4 ) )
              );
         k1 = y ( i ) + h * (
-                          adams_moulton_koeff ( 0 ) * f ( a + h * ( i + 1 ),     k1 ) +
-                          adams_moulton_koeff ( 1 ) * f ( a + h * ( i ), y ( i ) ) -
-                          adams_moulton_koeff ( 2 ) * f ( a + h * ( i - 1 ), y ( i - 1 ) ) +
-                          adams_moulton_koeff ( 3 ) * f ( a + h * ( i - 2 ), y ( i - 2 ) ) -
-                          adams_moulton_koeff ( 4 ) * f ( a + h * ( i - 3 ), y ( i - 3 ) )
-                      );
+                 adams_moulton_koeff ( 0 ) * f ( a + h * ( i + 1 ),     k1 ) +
+                 adams_moulton_koeff ( 1 ) * f ( a + h * ( i ), y ( i ) ) -
+                 adams_moulton_koeff ( 2 ) * f ( a + h * ( i - 1 ), y ( i - 1 ) ) +
+                 adams_moulton_koeff ( 3 ) * f ( a + h * ( i - 2 ), y ( i - 2 ) ) -
+                 adams_moulton_koeff ( 4 ) * f ( a + h * ( i - 3 ), y ( i - 3 ) )
+             );
         y ( i + 1 ) = y ( i ) + h * (
                           adams_moulton_koeff ( 0 ) * f ( a + h * ( i + 1 ),     k1 ) +
                           adams_moulton_koeff ( 1 ) * f ( a + h * ( i ), y ( i ) ) -
@@ -233,7 +232,7 @@ matr AdMltn_function_solve_vector ( float a, float b, float h, int n, vec ( *vf 
     matr Y ( ( n + 1 ), vs.size() );
 
     subrange ( Y, 0, 5, 0, vs.size() ) =
-    rk_system_function_solve_vector ( a, b, h, 4, vf, vs );
+        rk_system_function_solve_vector ( a, b, h, 4, vf, vs );
 
     for ( int i = 4; i < n; i++ )
         {
@@ -246,12 +245,12 @@ matr AdMltn_function_solve_vector ( float a, float b, float h, int n, vec ( *vf 
                                );
 
         P = row ( Y, i ) + h * (
-                 adams_bashford_koeff ( 0 ) * vf ( a + h * ( i ),     row ( Y, i ) ) -
-                 adams_bashford_koeff ( 1 ) * vf ( a + h * ( i - 1 ), row ( Y, i - 1 ) ) +
-                 adams_bashford_koeff ( 2 ) * vf ( a + h * ( i - 2 ), row ( Y, i - 2 ) ) -
-                 adams_bashford_koeff ( 3 ) * vf ( a + h * ( i - 3 ), row ( Y, i - 3 ) ) +
-                 adams_bashford_koeff ( 4 ) * vf ( a + h * ( i - 4 ), row ( Y, i - 4 ) )
-             );
+                adams_bashford_koeff ( 0 ) * vf ( a + h * ( i ),     row ( Y, i ) ) -
+                adams_bashford_koeff ( 1 ) * vf ( a + h * ( i - 1 ), row ( Y, i - 1 ) ) +
+                adams_bashford_koeff ( 2 ) * vf ( a + h * ( i - 2 ), row ( Y, i - 2 ) ) -
+                adams_bashford_koeff ( 3 ) * vf ( a + h * ( i - 3 ), row ( Y, i - 3 ) ) +
+                adams_bashford_koeff ( 4 ) * vf ( a + h * ( i - 4 ), row ( Y, i - 4 ) )
+            );
         row ( Y, i + 1 ) = row ( Y, i ) + h * (
                                adams_moulton_koeff ( 0 ) * vf ( a + h * ( i + 1 ),     P ) -
                                adams_moulton_koeff ( 1 ) * vf ( a + h * ( i ), row ( Y, i ) ) +
@@ -294,12 +293,12 @@ matr AdMltn_system_solve_matrix ( float h, int n, vec y_0, matr F )
              );
 
         row ( Y, i + 1 ) = row ( Y, i ) + h* (
-                                 adams_moulton_koeff ( 0 ) * prod ( F, k1 ) -
-                                 adams_moulton_koeff ( 1 ) * prod ( F, row ( Y, i ) ) +
-                                 adams_moulton_koeff ( 2 ) * prod ( F, row ( Y, i - 1 ) ) -
-                                 adams_moulton_koeff ( 3 ) * prod ( F, row ( Y, i - 2 ) ) +
-                                 adams_moulton_koeff ( 4 ) * prod ( F, row ( Y, i - 3 ) )
-                             );
+                               adams_moulton_koeff ( 0 ) * prod ( F, k1 ) -
+                               adams_moulton_koeff ( 1 ) * prod ( F, row ( Y, i ) ) +
+                               adams_moulton_koeff ( 2 ) * prod ( F, row ( Y, i - 1 ) ) -
+                               adams_moulton_koeff ( 3 ) * prod ( F, row ( Y, i - 2 ) ) +
+                               adams_moulton_koeff ( 4 ) * prod ( F, row ( Y, i - 3 ) )
+                           );
         }
 
     return Y;
@@ -332,12 +331,12 @@ matr AdMltn_system_solve_matrix_omp ( float h, int n, vec y_0, matr F )
              );
 
         row ( Y, i + 1 ) = row ( Y, i ) + h* (
-                                 adams_moulton_koeff ( 0 ) * multMatrVec_omp ( F, k1 ) -
-                                 adams_moulton_koeff ( 1 ) * multMatrVec_omp ( F, row ( Y, i ) ) +
-                                 adams_moulton_koeff ( 2 ) * multMatrVec_omp ( F, row ( Y, i - 1 ) ) -
-                                 adams_moulton_koeff ( 3 ) * multMatrVec_omp ( F, row ( Y, i - 2 ) ) +
-                                 adams_moulton_koeff ( 4 ) * multMatrVec_omp ( F, row ( Y, i - 3 ) )
-                             );
+                               adams_moulton_koeff ( 0 ) * multMatrVec_omp ( F, k1 ) -
+                               adams_moulton_koeff ( 1 ) * multMatrVec_omp ( F, row ( Y, i ) ) +
+                               adams_moulton_koeff ( 2 ) * multMatrVec_omp ( F, row ( Y, i - 1 ) ) -
+                               adams_moulton_koeff ( 3 ) * multMatrVec_omp ( F, row ( Y, i - 2 ) ) +
+                               adams_moulton_koeff ( 4 ) * multMatrVec_omp ( F, row ( Y, i - 3 ) )
+                           );
         }
 
 
@@ -371,12 +370,12 @@ matr AdMltn_system_solve_matrix_mpi ( float h, int n, vec y_0, matr F )
              );
 
         row ( Y, i + 1 ) = row ( Y, i ) + h* (
-                                 adams_moulton_koeff ( 0 ) * multMatrVec_mpi ( F, k1 ) -
-                                 adams_moulton_koeff ( 1 ) * multMatrVec_mpi ( F, row ( Y, i ) ) +
-                                 adams_moulton_koeff ( 2 ) * multMatrVec_mpi ( F, row ( Y, i - 1 ) ) -
-                                 adams_moulton_koeff ( 3 ) * multMatrVec_mpi ( F, row ( Y, i - 2 ) ) +
-                                 adams_moulton_koeff ( 4 ) * multMatrVec_mpi ( F, row ( Y, i - 3 ) )
-                             );
+                               adams_moulton_koeff ( 0 ) * multMatrVec_mpi ( F, k1 ) -
+                               adams_moulton_koeff ( 1 ) * multMatrVec_mpi ( F, row ( Y, i ) ) +
+                               adams_moulton_koeff ( 2 ) * multMatrVec_mpi ( F, row ( Y, i - 1 ) ) -
+                               adams_moulton_koeff ( 3 ) * multMatrVec_mpi ( F, row ( Y, i - 2 ) ) +
+                               adams_moulton_koeff ( 4 ) * multMatrVec_mpi ( F, row ( Y, i - 3 ) )
+                           );
         }
 
 
@@ -411,10 +410,10 @@ matr eiler_system_solve_vector ( float a, float b, float h, int n, vec ( *vf ) (
     for ( int i = 0; i < n; ++i )
         {
         row ( Y, i + 1 ) = row ( Y, i ) +
-                             h * vf ( a + h * ( i ) + h/2,
-                                      row ( Y, i ) + h/2 * vf ( a + h * ( i ),
-                                              row ( Y, i ) )
-                                    );
+                           h * vf ( a + h * ( i ) + h/2,
+                                    row ( Y, i ) + h/2 * vf ( a + h * ( i ),
+                                            row ( Y, i ) )
+                                  );
         }
     return Y;
     }
@@ -423,6 +422,7 @@ matr eiler_system_solve_vector ( float a, float b, float h, int n, vec ( *vf ) (
 matr eiler_system_solve_matrix ( float h, int n, vec y_0, matr F )
     {
     matr Y ( n + 1, y_0.size() );
+    vec a ( y_0.size() );
     row ( Y, 0 ) = y_0;
 
     for ( int i = 0; i < n; ++i )
@@ -506,8 +506,8 @@ matr rk_system_function_solve_vector ( float a, float b, float h, int n, vec ( *
                   h * 2 / 7. * k2 + h * 12 / 7. * k3 - h * 12 / 7. * k4 + h * 8 / 7. * k5 );
 
         row ( Y, i + 1 ) = row ( Y, i ) + h / 90. * (
-                                 7 * k1 + 32 * k3 + 12 * k4 + 32 * k5 + 7 * k6
-                             );
+                               7 * k1 + 32 * k3 + 12 * k4 + 32 * k5 + 7 * k6
+                           );
         }
     return Y;
     }
@@ -536,7 +536,6 @@ matr rk_system_solve_matrix_omp ( float h, int n, vec y_0, matr F )
     vec k1, k2, k3, k4;
     matr Y ( n + 1, y_0.size() );
     row ( Y, 0 ) = y_0;
-
 
     for ( int i = 0; i < n; ++i )
         {
@@ -569,5 +568,4 @@ matr rk_system_solve_matrix_mpi ( float h, int n, vec y_0, matr F )
 
     return Y;
     }
-
 }

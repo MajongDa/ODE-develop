@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.21)
 project(simfor
         VERSION 0.0.1
         DESCRIPTION "SIMFOR framework library"
-        LANGUAGES ASM C CXX)
+        LANGUAGES C CXX)
 
 option(SIMFOR_BUILD_TESTS "Build SIMFOR tests" OFF)
 option(SIMFOR_BUILD_EXAMPLES "Build SIMFOR examples" ON)
 option(SIMFOR_BUILD_DOCS "Build SIMFOR documentation" OFF)
 
 
-find_package(Boost 1.70.0 REQUIRED)
+find_package(Boost 1.82.0 REQUIRED)
 find_package(OpenMP 4.5 REQUIRED)
 find_package(MPI REQUIRED)
 
@@ -24,6 +24,7 @@ add_compile_options(-O3)
 set(SIMFOR_INCLUDES
         # Public API includes
         ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/odu.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/sodu.hpp
         # Private API includes
         ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/internal/types.hpp
 )
@@ -32,8 +33,7 @@ set(SIMFOR_SOURCES
         ${SIMFOR_INCLUDES}
 
         ${CMAKE_CURRENT_SOURCE_DIR}/src/odu.cpp
-
-
+         ${CMAKE_CURRENT_SOURCE_DIR}/src/sodu.cpp
 )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SIMFOR_SOURCES})
@@ -50,7 +50,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         $<INSTALL_INTERFACE:include>
 )
 
-target_link_libraries( simfor boost MPI::MPI_CXX OpenMP::OpenMP_CXX)
+target_link_libraries( simfor boost_mpi MPI::MPI_CXX OpenMP::OpenMP_CXX)
 
 
 if (SIMFOR_BUILD_TESTS)

@@ -18,7 +18,7 @@ simfor::vec lorenz ( float t, simfor::vec a )
 
 simfor::vec Van_der_Pol(float t, simfor::vec a)
     {
-    float mu = 10e-10;
+    float mu = 10;
     simfor::vec oscil ( a.size() );
     oscil ( 0 ) = a ( 1 );
     oscil ( 1 ) = mu*( 1 - a(0)*a(0))*a(1) - a(0);

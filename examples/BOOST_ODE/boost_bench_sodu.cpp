@@ -64,24 +64,67 @@ simfor::vec initial_cond ( float a, int n )
 int main ( int argc, char* argv [] )
     {
     int n = atoi ( argv [ 1 ] );
-    float a, b, h;
+    float a = 0, b = 1, h;
     h = ( b - a ) / n;
     simfor::matr F = odu_matrix_create ( n ), Y;
     simfor::vec x0 = initial_cond ( 1, n );
 
-    double t;
-    t = clock();
-    Y = simfor::eiler_system_solve_matrix ( h, n, x0, F);
-    t = ( clock() - t ) / CLOCKS_PER_SEC ;
-    std::cout << "ESEQ " << t << "\t" << "\n";
+    double t, avg_t = 0, min_t = 1000;
+
+
+    Y = simfor::eiler_system_solve_matrix ( h, n, x0, F );
 
     t = clock();
-    Y = simfor::rk_system_solve_matrix ( h, n, x0, F);
+    Y = simfor::eiler_system_solve_matrix ( h, n, x0, F );
     t = ( clock() - t ) / CLOCKS_PER_SEC ;
-    std::cout << "RKSEQ " << t << "\t" << "\n";
+
+    std::cout << "ESEQ " << t  << "\n";
 
     t = clock();
-    Y = simfor::adams5_system_solve_matrix ( h, n, x0, F);
+    Y = simfor::rk_system_solve_matrix ( h, n, x0, F );
     t = ( clock() - t ) / CLOCKS_PER_SEC ;
-    std::cout << "ADBSEQ " << t << "\t" << "\n";
+
+    std::cout << "RKSEQ " << t  << "\n" << Y;
+
+
+
+    t = clock();
+    Y = simfor::adams5_system_solve_matrix ( h, n, x0, F );
+    t = ( clock() - t ) / CLOCKS_PER_SEC ;
+    std::cout << "ADBSEQ " << t << "\n";
+
+    //burnin
+    //for ( int i = 0; i < 10; ++i )
+    //    Y = simfor::eiler_system_solve_matrix ( h, n, x0, F );
+    // for ( int i = 0; i < 10; ++i )
+    //     {
+    //     t = clock();
+    //     Y = simfor::eiler_system_solve_matrix ( h, n, x0, F );
+    //     avg_t += t = ( clock() - t ) / CLOCKS_PER_SEC ;
+    //     min_t = min_t > t ? t : min_t;
+    //     }
+    // std::cout << "ESEQ avg " << avg_t/10  << " min_time "<< min_t << "\t" << "\n";
+    //
+    //
+    // min_t = 1000; avg_t = 0;
+    // for ( int i = 0; i < 10; ++i )
+    //     {
+    //     t = clock();
+    //     Y = simfor::rk_system_solve_matrix ( h, n, x0, F );
+    //     avg_t += t = ( clock() - t ) / CLOCKS_PER_SEC ;
+    //     min_t = min_t > t ? t : min_t;
+    //     }
+    // std::cout << "RKSEQ avg " << avg_t/10  << " min_time "<< min_t << "\t" << "\n";
+    //
+    //
+    // min_t = 1000; avg_t = 0;
+    // for ( int i = 0; i < 10; ++i )
+    //     {
+    //     t = clock();
+    //     Y = simfor::adams5_system_solve_matrix ( h, n, x0, F );
+    //     avg_t += t = ( clock() - t ) / CLOCKS_PER_SEC ;
+    //     min_t = min_t > t ? t : min_t;
+    //     }
+    //     std::cout << "ADBSEQ avg " << avg_t/10 << " min_time "<< min_t << "\t" << "\n";
+
     }

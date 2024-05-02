@@ -1,4 +1,3 @@
-
 #include <boost/numeric/ublas/io.hpp>
 #include <boost/mpi.hpp>
 #include <iostream>
@@ -65,36 +64,43 @@ simfor::vec initial_cond ( float a, int n )
 int main ( int argc, char* argv [] )
     {
     int n = atoi ( argv [ 1 ] );
-    float a, b, h;
+    float a=0, b=1, h;
     h = ( b - a ) / n;
     simfor::matr F = odu_matrix_create ( n ), Y;
     simfor::vec x0 = initial_cond ( 1, n );
 
     double t;
-    t = clock();
-    mpi::environment env;
-    mpi::communicator word;
-    Y = simfor::eiler_system_solve_matrix_mpi ( h, n, x0, F);
-    if( !word.rank() )
-    {
-        t = ( clock() - t ) / CLOCKS_PER_SEC ;
-        std::cout << "ESEQ " << t << "\t" << "\n";
-    }
-
-    t = clock();
-    Y = simfor::rk_system_solve_matrix_mpi ( h, n, x0, F);
-    if( !word.rank() )
-    {
-        t = ( clock() - t ) / CLOCKS_PER_SEC ;
-        std::cout << "RKSEQ " << t << "\t" << "\n";
-    }
 
 
+    boost::mpi::environment env;
+    boost::mpi::communicator world;
+
+    Y = simfor::eiler_system_solve_matrix_mpi ( h, n, x0, F );
+    Y = simfor::eiler_system_solve_matrix_mpi ( h, n, x0, F );
+
     t = clock();
-    Y = simfor::adams5_system_solve_matrix_mpi ( h, n, x0, F);
-    if( !word.rank() )
-    {
+    Y = simfor::eiler_system_solve_matrix_mpi ( h, n, x0, F );
+    if ( !world.rank() )
+        {
         t = ( clock() - t ) / CLOCKS_PER_SEC ;
-        std::cout << "ADBSEQ " << t << "\t" << "\n";
-    }
+        std::cout << "Threads: " << world.size() << "\n";
+        std::cout << "E_MPI " << t << "\t" << "\n";
+        }
+
+    t = clock();
+    Y = simfor::rk_system_solve_matrix_mpi ( h, n, x0, F );
+    if ( !world.rank() )
+        {
+        t = ( clock() - t ) / CLOCKS_PER_SEC ;
+        std::cout << "RK_MPI " << t << "\t" << "\n";
+        }
+
+
+    t = clock();
+    Y = simfor::adams5_system_solve_matrix_mpi ( h, n, x0, F );
+    if ( !world.rank() )
+        {
+        t = ( clock() - t ) / CLOCKS_PER_SEC ;
+        std::cout << "ADB_MPI " << t << "\t" << "\n";
+        }
     }
