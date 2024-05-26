@@ -11,8 +11,8 @@
 
 namespace simfor
 {
-using matr = boost::numeric::ublas::matrix<float>;
-using vec = boost::numeric::ublas::vector<float>;
+using matr = boost::numeric::ublas::matrix<double>;
+using vec = boost::numeric::ublas::vector<double>;
 using scalar_vector = boost::numeric::ublas::scalar_vector<float>;
 }
 

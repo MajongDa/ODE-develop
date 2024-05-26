@@ -4,7 +4,7 @@
 #include <omp.h>
 #include <boost/mpi.hpp>
 #include "internal/types.hpp"
-#include "simfor/multMatrVec.hpp"
+#include "multMatrVec.hpp"
 #include <iostream>
 
 
@@ -12,44 +12,56 @@
 namespace simfor
 {
 namespace mpi = boost::mpi;
-//коэффаценты соотв. методов
-float adams_bashford_koeff( int );
-float adams_moulton_koeff( int );
+//Coeffisients for Adams methods
+double adams_bashford_koeff( int );
+double adams_moulton_koeff( int );
 
-//метотоды Адамса-Милна
-vec AdMiln_function_solve ( float, float, float, int, float ( * ) ( float, float ), float );
-matr AdMiln_function_solve_vector ( float, float, float, vec ( * ) ( float, vec), vec );
-matr AdMiln_system_solve_matrix ( float, int, vec, matr );
-matr AdMiln_system_solve_matrix_omp ( float, int, vec, matr );
-matr AdMiln_system_solve_matrix_mpi ( float, int, vec, matr );
+//Adams-Milne method
+vec AdMiln_function_solve ( double, double, double, int, double ( * ) ( double, double ), double );
+matr AdMiln_function_solve_vector ( double, double, double, vec ( * ) ( double, vec), vec );
 
 //метотоды Адамса-Башфорта
-vec adams5_function_solve ( float, float, float, int, float ( * ) ( float, float ), float);
-matr adams5_function_solve_vector ( float, float, float, int, vec ( * ) ( float, vec ), vec );
-matr adams5_system_solve_matrix ( float, int, vec, matr );
-matr adams5_system_solve_matrix_omp ( float, int, vec, matr );
-matr adams5_system_solve_matrix_mpi ( float, int, vec, matr );
+vec adams5_function_solve ( double, double, double, int, double ( * ) ( double, double ), double);
+matr adams5_function_solve_vector ( double, double, double, int, vec ( * ) ( double, vec ), vec );
+matr adams5_system_solve_matrix ( double, int, vec, matr );
+matr adams5_system_solve_matrix_omp ( double, int, vec, matr );
+matr adams5_system_solve_matrix_mpi ( double, int, vec, matr );
 
-//метотоды Адамса-Моултона
-vec AdMltn_function_solve ( float, float, float, int, float ( * ) ( float, float ), float);
-matr AdMltn_function_solve_vector ( float, float, float, int, vec ( * ) ( float, vec), vec );
-matr AdMltn_system_solve_matrix ( float, int, vec, matr );
-matr AdMltn_system_solve_matrix_omp ( float, int, vec, matr );
-matr AdMltn_system_solve_matrix_mpi ( float, int, vec, matr );
+//Adams-Moulton method
+vec AdMltn_function_solve ( double, double, double, int, double ( * ) ( double, double ), double);
+matr AdMltn_function_solve_vector ( double, double, double, int, vec ( * ) ( double, vec), vec );
+matr AdMltn_system_solve_matrix ( double, int, vec, matr );
+matr AdMltn_system_solve_matrix_omp ( double, int, vec, matr );
+matr AdMltn_system_solve_matrix_mpi ( double, int, vec, matr );
 
-//eiler
-vec eiler_function_solve ( float, float, float, int, float ( * ) ( float, float ), float );
-matr eiler_system_solve_vector ( float, float, float, int, vec ( * ) ( float, vec ), vec );
-matr eiler_system_solve_matrix ( float, int, vec, matr);
-matr eiler_system_solve_matrix_omp ( float, int, vec, matr);
-matr eiler_system_solve_matrix_mpi ( float, int, vec, matr);
+//Euler method
+vec eiler_function_solve ( double, double, double, int, double ( * ) ( double, double ), double );
+matr eiler_system_solve_vector ( double, double, double, int, vec ( * ) ( double, vec ), vec );
+matr eiler_system_solve_matrix ( double, int, vec, matr);
+matr eiler_system_solve_matrix_omp ( double, int, vec, matr);
+matr eiler_system_solve_matrix_mpi ( double, int, vec, matr);
 
-//rk(Runge-Kutta)
-vec rk_function_solve ( float, float, float, int, float ( * ) ( float, float ), float );
-matr rk_system_function_solve_vector ( float, float, float, int, vec( * ) ( float, vec), vec );
-matr rk_system_solve_matrix ( float, int, vec, matr);
-matr rk_system_solve_matrix_omp ( float, int, vec, matr);
-matr rk_system_solve_matrix_mpi ( float, int, vec, matr);
+//Runge-Kutta classical 4 stage method
+vec rk4_function_solve ( double, double, double, int, double ( * ) ( double, double ), double );
+matr rk4_system_function_solve_vector ( double, double, double, int, vec( * ) ( double, vec), vec );
+matr rk4_system_solve_matrix ( double, int, vec, matr);
+matr rk4_system_solve_matrix_omp ( double, int, vec, matr);
+matr rk4_system_solve_matrix_mpi ( double, int, vec, matr);
+
+//Runge-Kutta classical 6 stage method
+vec rk6_function_solve ( double, double, double, int, double ( * ) ( double, double ), double );
+matr rk6_system_function_solve_vector ( double, double, double, int, vec( * ) ( double, vec), vec );
+matr rk6_system_solve_matrix ( double, int, vec, matr);
+matr rk6_system_solve_matrix_omp ( double, int, vec, matr);
+matr rk6_system_solve_matrix_mpi ( double, int, vec, matr);
+
+//Runge-Kutta Dormand-Prince method
+matr rk54( double, double, double ( * ) ( double, double ), double , double, double, double);
+matr rk54( double, double, vec( * ) ( double, vec), vec, double , double, double );
+
+//Runge-Kutta Fahlberg method
+matr rk45( double, double, double ( * ) ( double, double ), double , double, double, double);
+matr rk45( double, double, vec( * ) ( double, vec), vec, double , double, double );
 }
 
 #endif

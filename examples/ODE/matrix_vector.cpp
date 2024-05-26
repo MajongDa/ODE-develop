@@ -1,4 +1,4 @@
-#include <simfor/multMatrixVector.hpp>
+#include "multMatrixVector.hpp"
 #include <iostream>
 
 int main ( int argc, char **argv )

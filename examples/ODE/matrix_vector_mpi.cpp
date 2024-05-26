@@ -1,5 +1,5 @@
 
-#include "simfor/multMatrixVector.hpp"
+#include "multMatrixVector.hpp"
 #include <iostream>
 
 using namespace std;
