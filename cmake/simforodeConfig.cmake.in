@@ -1,0 +1,6 @@
+@PACKAGE_INIT@
+
+include(${CMAKE_CURRENT_LIST_DIR}/simforode.cmake)
+set_and_check(simforode_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+set(simforode_LIBRARIES simfor::ode)
+check_required_components(simforode)

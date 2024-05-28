@@ -26,13 +26,17 @@ add_compile_options(-O3)
 set(SIMFOR_INCLUDES
         # Public API includes
         ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/odu.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/sodu.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/vector.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/matrix.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/multMatrixVector.hpp
         # Private API includes
         ${CMAKE_CURRENT_SOURCE_DIR}/include/simfor/internal/types.hpp
 )
 
 set(SIMFOR_SOURCES
         ${SIMFOR_INCLUDES}
-
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/sodu.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/odu.cpp
 )
 
