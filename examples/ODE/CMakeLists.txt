@@ -26,7 +26,6 @@
 cmake_minimum_required(VERSION 3.21)
 project(ODE)
 
-find_package(Matplot++ REQUIRED)
 find_package(simforode REQUIRED)
 find_package(OpenMP 4.5 REQUIRED)
 find_package(MPI REQUIRED)
@@ -46,5 +45,5 @@ set(ODE_FILES
 foreach(EXE ${ODE_FILES})
     string(REPLACE ".cpp" "" EXE_NAME ${EXE})
     add_executable(${EXE_NAME} ${EXE})
-    target_link_libraries(${EXE_NAME} PUBLIC simforode::simforode Matplot++::matplot MPI::MPI_CXX OpenMP::OpenMP_CXX)
+    target_link_libraries(${EXE_NAME} PUBLIC simforode::simforode MPI::MPI_CXX OpenMP::OpenMP_CXX)
 endforeach()
