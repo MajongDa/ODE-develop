@@ -1,5 +1,5 @@
 
-#include "simfor/multMatrVec.hpp"
+#include <simforode/multMatrVec.hpp>
 #include <boost/numeric/ublas/io.hpp>
 #include <boost/mpi.hpp>
 #include <iostream>

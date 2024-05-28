@@ -1,5 +1,6 @@
 #include <iostream>
-#include <simfor/odu.hpp>
+#include <simfor/multMatrVec.hpp>
+#include <simforode/odu.hpp>
 
 double koef_matrix_settings ( unsigned j, unsigned i, unsigned n )
     {

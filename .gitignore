@@ -51,6 +51,9 @@
 # CMake
 cmake-build-*/
 build/*
+examples/BOOT_ODE/build/*
+examples/ODE/build/*
+
 .cache
 
 # Mongo Explorer plugin

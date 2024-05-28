@@ -1,5 +1,5 @@
 #include <iostream>
-#include "sodu.hpp"
+#include <simforode/sodu.hpp>
 
 float koef_matrix_settings ( unsigned j, unsigned i, unsigned n )
     {

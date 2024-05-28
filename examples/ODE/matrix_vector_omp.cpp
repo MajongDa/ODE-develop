@@ -1,4 +1,4 @@
-#include "multMatrixVector.hpp"
+#include <simforode/multMatrixVector.hpp>
 #include <iostream>
 
 

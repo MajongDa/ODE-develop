@@ -1,7 +1,7 @@
 #include <boost/numeric/ublas/io.hpp>
 #include <boost/mpi.hpp>
 #include <iostream>
-#include <simfor/odu.hpp>
+#include <simforode/odu.hpp>
 
 double koef_matrix_settings ( unsigned j, unsigned i, unsigned n )
     {
